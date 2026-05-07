@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Zeynep ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Cielo nocturno */
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; 
+            text-align: center;
+            position: relative;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: #d81b60;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #444;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            min-height: 60px; 
+            flex-wrap: wrap;
+        }
+
+        button {
+            background-color: #d81b60;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: all 0.2s ease; 
+            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+            /* Evita el zoom al tocar rápido en celulares */
+            touch-action: manipulation; 
+        }
+
+        button:hover:not(.btn-no) {
+            background-color: #ad144b;
+            transform: translateY(-2px);
+        }
+
+        .btn-no {
+            background-color: #888;
+            box-shadow: 0 4px 15px rgba(136, 136, 136, 0.3);
+            position: relative; 
+            z-index: 11;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        #success {
+            display: none;
+        }
+
+        .heart {
+            color: #d81b60;
+            font-size: 3rem;
+            animation: beat 1s infinite;
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .stars {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars" id="stars"></div>
+
+    <div class="card" id="mainCard">
+        
+        <div id="step1" class="step active">
+            <h1>Hola, mi querida Zeynep...</h1>
+            <p>Dicen que la distancia es difícil y que nuestras culturas son diferentes. Pero mi corazón sabe que tú eres mi hogar.<br><br><strong>¿Estás dispuesta a seguir construyendo este hermoso puente entre nosotros?</strong></p>
+            <div class="btn-container">
+                <button onclick="nextStep(2)">¡Sí, lo estoy!</button>
+                <button class="btn-no" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)" ontouchstart="dodgeButton(this, event)">No, no lo estoy</button>
+            </div>
+        </div>
+
+        <div id="step2" class="step">
+            <h1>Me haces tan feliz...</h1>
+            <p>Cada kilómetro desaparece cuando escucho tu voz. Eres mi pensamiento favorito cada día.<br><br><strong>¿Me prometes que seguiremos compartiendo sonrisas y momentos únicos a pesar de la distancia?</strong></p>
+            <div class="btn-container">
+                <button onclick="nextStep(3)">¡Lo prometo!</button>
+                <button class="btn-no" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)" ontouchstart="dodgeButton(this, event)">No puedo prometerlo</button>
+            </div>
+        </div>
+
+        <div id="step3" class="step">
+            <h1>Entonces, Zeynep...</h1>
+            <p>Sabiendo que miramos el mismo cielo y que no hay distancia que cambie lo que siento por ti...<br><br><strong>¿Quieres ser mi novia? ❤️</strong></p>
+            <div class="btn-container">
+                <button onclick="celebrate()">¡Sí, quiero!</button>
+                <button class="btn-no" onmouseover="dodgeButton(this)" onclick="dodgeButton(this)" ontouchstart="dodgeButton(this, event)">No</button>
+            </div>
+        </div>
+
+        <div id="success">
+            <div class="heart">❤️</div>
+            <h1>¡Gracias por decir que SÍ!</h1>
+            <p>Me haces el hombre más afortunado del mundo. No importa la distancia, nuestro puente ya está construido.<br><br><strong>Seni seviyorum, Zeynep!<br><br>- Siempre tuyo, Edison.</strong></p>
+        </div>
+
+    </div>
+
+    <script>
+        // Función para avanzar
+        function nextStep(currentStep) {
+            const steps = document.querySelectorAll('.step');
+            steps.forEach(step => step.classList.remove('active'));
+
+            const nextStepEl = document.getElementById('step' + currentStep);
+            if (nextStepEl) {
+                nextStepEl.classList.add('active');
+            }
+        }
+
+        let scale = 1; 
+
+        // Actualizamos la función para recibir también el evento táctil
+        function dodgeButton(button, event) {
+            // Si hay un evento táctil, cancelamos el toque normal para que no cuente como clic
+            if (event) {
+                event.preventDefault();
+            }
+
+            scale -= 0.1; 
+            if (scale < 0.3) scale = 0.3; 
+            button.style.transform = `scale(${scale})`;
+
+            button.style.position = 'fixed'; 
+
+            const padding = 20; 
+            const btnWidth = button.offsetWidth;
+            const btnHeight = button.offsetHeight;
+
+            const newX = Math.random() * (window.innerWidth - btnWidth - padding * 2) + padding;
+            const newY = Math.random() * (window.innerHeight - btnHeight - padding * 2) + padding;
+
+            button.style.left = newX + 'px';
+            button.style.top = newY + 'px';
+        }
+
+        // Éxito
+        function celebrate() {
+            document.getElementById('step3').classList.remove('active');
+            document.getElementById('success').style.display = 'block';
+        }
+
+        // Estrellas
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.style.position = 'absolute';
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.backgroundColor = 'white';
+                star.style.borderRadius = '50%';
+                star.style.opacity = Math.random();
+                star.style.animation = `beat ${Math.random() * 2 + 1}s infinite alternate`;
+                starsContainer.appendChild(star);
+            }
+        }
+        createStars();
+    </script>
+</body>
+</html>
